@@ -23,12 +23,15 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation 'mysql:mysql-connector-java:8.0.25'
-    implementation 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
     // must have for mysql driver v5.6 details here: https://stackoverflow.com/questions/33123985/cannot-load-driver-class-com-mysql-jdbc-driver-spring
     runtimeOnly('com.h2database:h2')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
