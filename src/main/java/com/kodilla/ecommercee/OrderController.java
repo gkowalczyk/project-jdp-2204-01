@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/orders")
+@RequestMapping("v1/orders")
 public class OrderController {
 
     @GetMapping
