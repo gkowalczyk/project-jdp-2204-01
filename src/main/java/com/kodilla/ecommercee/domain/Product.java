@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
-/*Temporary Product class, needed for the implementation of related DTO, Mapper, Repository controller and Service
+/*Temporary Product class, needed for the implementation of related DTO, Mapper, Repository controller and DB Service
 within given task
 Further addition of Entity features required*/
 
