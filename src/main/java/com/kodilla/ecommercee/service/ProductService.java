@@ -10,8 +10,6 @@ import java.util.*;
 @Service
 public class ProductService {
 
-    // TODO: Replace with repository when database entity ready
-    private long id = 1;
     private final Map<Long, Product> products = new HashMap<>();
 
     public List<ProductDto> getAllProducts() {
@@ -19,9 +17,8 @@ public class ProductService {
     }
 
     public void createProduct(ProductDto productDto) {
-        id++;
-        Product product = new Product(id, productDto.getName(), productDto.getPrice());
-        products.put(id, product);
+        Product product = new Product(productDto.getId(), productDto.getName(), productDto.getPrice());
+        products.put(productDto.getId(), product);
     }
 
     public void editProduct(Long id, ProductDto productDto) {
