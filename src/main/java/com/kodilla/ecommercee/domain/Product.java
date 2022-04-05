@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ Further addition of Entity features required*/
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "products")
+@Data
 public class Product {
 
     @Id
