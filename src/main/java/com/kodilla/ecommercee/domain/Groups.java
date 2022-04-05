@@ -26,6 +26,5 @@ public class Groups {
 
 
 //    @Column(name = "products")
-//    @NotNull
-//    private ArrayList<Products>; ,
+//    private ArrayList<Products>;
 }
