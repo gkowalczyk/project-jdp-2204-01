@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee;
 
-import com.kodilla.ecommercee.domain.GroupDto;
+import com.kodilla.ecommercee.dto.GroupsDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,32 +12,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/group")
 @AllArgsConstructor
-public class GroupController {
+public class GroupsController {
 
     //private final DbService dbService;
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<GroupDto>> getAllGroups() {
-        List<GroupDto> groupDtoList = new ArrayList<>();
+    public ResponseEntity<List<GroupsDto>> getAllGroups() {
+        List<GroupsDto> groupDtoList = new ArrayList<>();
         // to do service
         return ResponseEntity.ok(groupDtoList);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GroupDto> addNewGroup(@RequestBody GroupDto groupDto) {
+    public ResponseEntity<GroupsDto> addNewGroup(@RequestBody GroupsDto groupDto) {
         // to do service
         return ResponseEntity.ok(groupDto);
     }
 
     @GetMapping(value = "/{groupId}")
-    public ResponseEntity<GroupDto> getGroup(@PathVariable Long groupId) {
-        GroupDto groupDto = new GroupDto();
+    public ResponseEntity<GroupsDto> getGroup(@PathVariable Long groupId) {
+        GroupsDto groupDto = new GroupsDto();
         // to do service
         return ResponseEntity.ok(groupDto);
     }
 
     @PutMapping(value = "/{groupId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GroupDto> updateGroup(@PathVariable Long groupId, @RequestBody GroupDto groupDto) {
+    public ResponseEntity<GroupsDto> updateGroup(@PathVariable Long groupId, @RequestBody GroupsDto groupDto) {
         // to do service
         return ResponseEntity.ok(groupDto);
     }
