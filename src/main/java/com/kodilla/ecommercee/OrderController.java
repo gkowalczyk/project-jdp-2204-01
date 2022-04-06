@@ -15,28 +15,28 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<List<OrderDto>> getOrders() {
         List<OrderDto> ordersList = new ArrayList<>();
-        ordersList.add(new OrderDto(1L,"order 1"));
-        ordersList.add(new OrderDto(2L,"order 2"));
-        ordersList.add(new OrderDto(3L,"order 3"));
-        ordersList.add(new OrderDto(4L,"order 5"));
+        ordersList.add(new OrderDto());
+        ordersList.add(new OrderDto());
+        ordersList.add(new OrderDto());
+        ordersList.add(new OrderDto());
         return ResponseEntity.ok(ordersList);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity <OrderDto> addNewOrder(@RequestBody OrderDto order) {
-        OrderDto newOrder = new OrderDto(1L,"new_order");
+        OrderDto newOrder = new OrderDto();
         return ResponseEntity.ok(newOrder);
     }
 
     @GetMapping(value = "{orderId}")
     public ResponseEntity<OrderDto> getOrder(@PathVariable Long orderId) {
-        OrderDto order = new OrderDto( orderId,"order_test");
+        OrderDto order = new OrderDto();
         return ResponseEntity.ok(order);
     }
 
     @PutMapping()
     public ResponseEntity<OrderDto> updateOrder(@RequestBody OrderDto order) {
-        OrderDto updatedOrder = new OrderDto(order.getId(), order.getDescription());
+        OrderDto updatedOrder = new OrderDto();
         return ResponseEntity.ok(updatedOrder);
     }
 
