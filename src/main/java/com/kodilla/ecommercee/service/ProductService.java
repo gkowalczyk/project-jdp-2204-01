@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class ProductService {
     }
 
     public void createProduct(ProductDto productDto) {
-        Product product = new Product(productDto.getId(), productDto.getName(), productDto.getPrice());
+        Product product = new Product(productDto.getName(), productDto.getDescription(), productDto.getPrice(), productDto.getGroup());
         products.put(productDto.getId(), product);
     }
 

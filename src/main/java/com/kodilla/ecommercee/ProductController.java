@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee;
 
-import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.dto.ProductDto;
 import com.kodilla.ecommercee.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;

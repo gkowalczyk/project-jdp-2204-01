@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.domain.ProductDto;
+import com.kodilla.ecommercee.dto.ProductDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,9 @@ public class ProductMapper {
         return new ProductDto(
                 product.getId(),
                 product.getName(),
-                product.getPrice()
+                product.getDescription(),
+                product.getPrice(),
+                product.getGroup()
         );
     }
 
