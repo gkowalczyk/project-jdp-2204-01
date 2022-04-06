@@ -34,10 +34,9 @@ public class ProductService {
 
     public ProductDto getProduct(Long id) {
         Product product = products.get(id);
-        if(product != null) {
+        if (product != null) {
             return ProductMapper.mapToProductDto(product);
         }
         return null;
     }
 }
-
