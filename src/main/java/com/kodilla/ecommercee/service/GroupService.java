@@ -40,6 +40,7 @@ public class GroupService {
             return GroupMapper.mapToGroupsDto(group);
         } else {
             return null;
+
         }
     }
 }
