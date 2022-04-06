@@ -13,11 +13,12 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "groups")
+@Entity
 public class Groups {
     @Id
     @GeneratedValue
     @NotNull
+    @Column(name="ID", unique=true)
     private Long id;
 
     @Column(name = "name")
