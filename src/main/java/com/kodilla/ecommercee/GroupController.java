@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/group")
 @AllArgsConstructor
-public class GroupsController {
+public class GroupController {
 
     //private final DbService dbService;
 

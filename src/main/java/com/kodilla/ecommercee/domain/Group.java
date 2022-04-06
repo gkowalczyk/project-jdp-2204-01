@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @Entity
-public class Groups {
+public class Group {
     @Id
     @GeneratedValue
     @NotNull
