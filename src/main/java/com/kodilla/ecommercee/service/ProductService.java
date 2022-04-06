@@ -5,10 +5,7 @@ import com.kodilla.ecommercee.domain.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 
 @Service
 public class ProductService {
