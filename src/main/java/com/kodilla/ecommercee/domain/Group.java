@@ -21,7 +21,7 @@ public class Group {
     @NotNull
     private String name;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn (name = "product_id")
     Product product;
 
