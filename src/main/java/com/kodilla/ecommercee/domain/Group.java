@@ -1,19 +1,15 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 @Entity
+@Table (name = "GROUP")
+@Data
 public class Group {
     @Id
     @GeneratedValue
@@ -21,11 +17,11 @@ public class Group {
     @Column(name="ID", unique=true)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     @NotNull
     private String groupName;
 
-
-//    @Column(name = "products")
-//    private ArrayList<Products>;
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
+    Product product;
 }

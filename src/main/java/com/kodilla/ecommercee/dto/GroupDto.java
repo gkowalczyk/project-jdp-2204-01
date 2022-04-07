@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class GroupDto {
     private Long id;
     private String groupName;
-    // private ArrayList<Products>;
+    private ProductDto productDto;
 }
