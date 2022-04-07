@@ -6,25 +6,28 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "carts")
+@Table(name = "CARTS")
 @Data
 @NoArgsConstructor
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Column
-    private Long userId;
-
-    @Column
-    private Long productId;
-
-    @Column
+    @Column (name = "QUANTITY")
     private Long quantity;
 
-    @Column
+    @JoinColumn
+    @Column(name = "USER_ID")
+    private Long userId;
+
+    @JoinColumn
+    @Column (name = "PRODUCT_ID")
+    private Long productId;
+
+    @JoinColumn
+    @Column (name = "ORDER_ID")
     Long orderId;
 
 
