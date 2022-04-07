@@ -1,27 +1,25 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
+
+
 @Entity
-@Table (name = "GROUP")
 @Data
+@NoArgsConstructor
 public class Group {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name="ID", unique=true)
+    @Column(name="id", unique=true)
     private Long id;
 
-    @Column(name = "NAME")
+    @Column
     @NotNull
     private String groupName;
 
     @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
+    @JoinColumn (name = "product_id")
     Product product;
 }

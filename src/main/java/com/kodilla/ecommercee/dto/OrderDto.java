@@ -10,8 +10,6 @@ public class OrderDto {
     private CartDto cartDto;
     private UserDto userDto;
 
-    public OrderDto(CartDto cartDto, UserDto userDto) {
-        this.cartDto = cartDto;
-        this.userDto = userDto;
-    }
+
 }
+
