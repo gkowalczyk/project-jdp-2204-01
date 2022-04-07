@@ -6,20 +6,22 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
+@Table(name = "groups")
 @Data
 @NoArgsConstructor
+
 public class Group {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name="id", unique=true)
+    @Column(name="ID", unique=true)
     private Long id;
 
     @Column
     @NotNull
-    private String groupName;
+    private String name;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn (name = "product_id")
     Product product;
 }
