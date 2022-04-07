@@ -24,4 +24,5 @@ public class Group {
     @OneToMany
     @JoinColumn (name = "product_id")
     Product product;
+
 }
