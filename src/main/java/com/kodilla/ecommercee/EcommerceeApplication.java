@@ -1,6 +1,4 @@
 package com.kodilla.ecommercee;
-
-import com.kodilla.ecommercee.dto.GroupDto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
