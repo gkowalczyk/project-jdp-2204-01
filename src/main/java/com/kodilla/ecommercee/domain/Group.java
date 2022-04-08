@@ -11,16 +11,15 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="GROUPS")
+@Table(name="groups")
 public class Group {
 
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name="GROUP_ID", unique=true)
+    @Column(name="group_id", unique=true)
     private Long id;
 
-    @Column(name="name")
     private String name;
 
     @OneToMany(

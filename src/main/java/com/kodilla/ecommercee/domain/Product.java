@@ -12,26 +12,23 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="PRODUCTS")
+@Table(name="products")
 public class Product {
 
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name = "PRODUCT_ID", unique = true)
+    @Column(name = "product_id", unique = true)
     private Long id;
 
-    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "PRICE")
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "GROUP_ID")
+    @JoinColumn(name = "group_id")
     private Group group;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
