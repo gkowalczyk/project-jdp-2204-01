@@ -3,10 +3,12 @@ package com.kodilla.ecommercee.domain;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Entity
-@Table(name = "groups")
+@Table(name = "GROUPS")
 @Data
 @NoArgsConstructor
 
@@ -17,12 +19,12 @@ public class Group {
     @Column(name="ID", unique=true)
     private Long id;
 
-    @Column
+    @Column(name = "NAME")
     @NotNull
     private String name;
 
-    @ManyToOne
-    @JoinColumn (name = "product_id")
-    Product product;
+    @OneToMany
+    @JoinColumn (name = "id")
+    private Collection<Product> products = new ArrayList<Product>();
 
 }
