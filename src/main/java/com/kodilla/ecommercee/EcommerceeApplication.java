@@ -18,22 +18,22 @@ public class EcommerceeApplication {
     public static void main(String[] args) {
         SpringApplication.run(EcommerceeApplication.class, args);
     }
-}
 
-@EnableWebSecurity
-@Configuration
-class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/v1/users/user").permitAll()
-                .anyRequest().authenticated();
+    @EnableWebSecurity
+    @Configuration
+    class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.csrf().disable()
+                    .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                    .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/v1/users/user").permitAll()
+                    .anyRequest().authenticated();
+        }
     }
 }
-
 
 
 
