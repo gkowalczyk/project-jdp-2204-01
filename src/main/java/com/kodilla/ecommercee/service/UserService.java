@@ -1,36 +1,61 @@
 package com.kodilla.ecommercee.service;
 
-
-import com.kodilla.ecommercee.UserNotFoundException;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
-
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
-
+    @Autowired
     private UserRepository userRepository;
 
     public User createUser(final User user) {
+        user.setActive(true);
         return userRepository.save(user);
     }
 
-    public User blockUserId(final Long userId) throws UserNotFoundException {
-        User blockUser = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        blockUser.setActive(false);
-        return userRepository.save(blockUser);
+    public User blockUser(final User user) {
+        user.setActive(false);
+        return userRepository.save(user);
+
     }
 
+    public String getJWTToken(String username) {
+
+        String secretKey = "mySecretKey";
+        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+                .commaSeparatedStringToAuthorityList("ROLE_USER");
+        String token = Jwts
+                .builder()
+                .setId("id")
+                .setSubject(username)
+                .claim("authorities",
+                        grantedAuthorities.stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .collect(Collectors.toList()))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000))
+                .signWith(SignatureAlgorithm.HS512,
+                        secretKey.getBytes()).compact();
+
+        return "kodilla_token " + token;
+
+    }
     public User generateKey(final User user) {
         Random random = new Random();
         String tokenUserKey = String.valueOf(random.nextInt(99999999));
         user.setPersonalKey(tokenUserKey);
         return userRepository.save(user);
     }
-
 }

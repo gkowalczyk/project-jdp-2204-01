@@ -22,11 +22,10 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
-
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation 'org.hudsonci.plugins:claim:1.8-h-1'
     runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly('com.h2database:h2')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
@@ -36,4 +35,9 @@ dependencies {
 
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
+
+    compile group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    //Thanks for using https://jar-download.com
 }
