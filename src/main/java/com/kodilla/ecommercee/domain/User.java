@@ -14,5 +14,8 @@ public class User {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-
+    private String userName;
+    private String personalKey;
+    private boolean isActive;
 }
+
