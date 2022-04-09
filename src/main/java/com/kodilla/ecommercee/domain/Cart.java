@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +13,9 @@ import javax.persistence.Table;
 @Table(name = "carts")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
+
     @Id
     @Column(name = "id", nullable = false)
     private Long id;

@@ -1,47 +1,51 @@
 package com.kodilla.ecommercee;
 
+import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.dto.OrderDto;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("v1/orders")
+@RequiredArgsConstructor
 public class OrderController {
 
+    private final OrderService orderService;
+
     @GetMapping
-    public ResponseEntity<List<OrderDto>> getOrders() {
-        List<OrderDto> ordersList = new ArrayList<>();
-        ordersList.add(new OrderDto());
-        ordersList.add(new OrderDto());
-        ordersList.add(new OrderDto());
-        ordersList.add(new OrderDto());
-        return ResponseEntity.ok(ordersList);
+    public ResponseEntity<List<Order>> getOrders() {
+        List<Order> orders = orderService.getOrders();
+        return ResponseEntity.ok(orders);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity <OrderDto> addNewOrder(@RequestBody OrderDto order) {
-        OrderDto newOrder = new OrderDto();
-        return ResponseEntity.ok(newOrder);
+    public ResponseEntity<OrderDto> addNewOrder(@RequestBody OrderDto orderDto) {
+        Order order = orderService.createOrder(OrderMapper.mapToOrder(orderDto));
+        return ResponseEntity.ok(OrderMapper.mapToOrderDto(order));
     }
 
     @GetMapping(value = "{orderId}")
     public ResponseEntity<OrderDto> getOrder(@PathVariable Long orderId) {
-        OrderDto order = new OrderDto();
-        return ResponseEntity.ok(order);
+        Order order = orderService.getOrderById(orderId);
+        return ResponseEntity.ok(OrderMapper.mapToOrderDto(order));
     }
 
     @PutMapping()
-    public ResponseEntity<OrderDto> updateOrder(@RequestBody OrderDto order) {
-        OrderDto updatedOrder = new OrderDto();
-        return ResponseEntity.ok(updatedOrder);
+    public ResponseEntity<OrderDto> updateOrder(@RequestBody OrderDto orderDto) {
+        Order order = OrderMapper.mapToOrder(orderDto);
+        orderService.updateOrder(order);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "{orderId}")
-    public ResponseEntity <Boolean> deleteOrder(@PathVariable Long orderId) {
-        return ResponseEntity.ok(Boolean.TRUE);
+    public ResponseEntity<Boolean> deleteOrder(@PathVariable Long orderId) {
+        orderService.deleteOrder(orderId);
+        return ResponseEntity.ok().build();
     }
 }

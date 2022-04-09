@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
@@ -24,9 +26,4 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Order(Cart cart, User user) {
-        this.cart = cart;
-        this.user = user;
-    }
 }
