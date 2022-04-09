@@ -2,11 +2,11 @@ package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.exceptions.OrderNotFoundException;
-import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +17,10 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     public List<Order> getOrders(){
-        return orderRepository.findAll();
+        Iterable<Order> all = orderRepository.findAll();
+        List<Order> orders = new ArrayList<>();
+        all.forEach(orders::add);
+        return orders;
     }
 
     public Order createOrder(final Order order){
