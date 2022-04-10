@@ -14,23 +14,22 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "ORDER_ID", unique = true, nullable = false)
     private Long id;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "join_product_order",
-            joinColumns = {@JoinColumn(name = "order_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id")}
+            name = "JOIN_PRODUCT_ORDER",
+            joinColumns = {@JoinColumn(name = "ORDER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID")}
     )
     private List<Product> products;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
-    public Order(Long id, User user) {
-        this.id = id;
+    public Order(User user) {
         this.user = user;
     }
 }
