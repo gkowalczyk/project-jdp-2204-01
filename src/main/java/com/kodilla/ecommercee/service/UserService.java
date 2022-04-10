@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,8 +23,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User blockUser(final User user) {
-        user.setActive(false);
+    public User blockUser(final User user)  {
+            user.setActive(false);
         return userRepository.save(user);
 
     }
@@ -48,14 +46,6 @@ public class UserService {
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000))
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes()).compact();
-
         return "kodilla_token " + token;
-
-    }
-    public User generateKey(final User user) {
-        Random random = new Random();
-        String tokenUserKey = String.valueOf(random.nextInt(99999999));
-        user.setPersonalKey(tokenUserKey);
-        return userRepository.save(user);
     }
 }
