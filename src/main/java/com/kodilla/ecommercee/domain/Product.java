@@ -1,37 +1,53 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-/*Temporary Product class, needed for the implementation of related DTO, Mapper, Repository controller and DB Service
-within given task
-Further addition of Entity features required*/
-
-/*Final form of relations (e.g. 1:N, N:1, etc.) between Product and the rest of possible entities:
-        Product, User, Cart, Order and Group of Products - to be established within task JDP220401-12*/
-
-@Getter
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "products")
 @Data
+@Entity
+@Table(name="PRODUCTS")
 public class Product {
 
     @Id
+    @NotNull
     @GeneratedValue
+    @Column(name = "PRODUCT_ID", unique = true)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "price")
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Column(name = "PRICE")
     private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "GROUP_ID")
+    private Group group;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private List<Cart> carts = new ArrayList<>();
+
+    public Product(String name, String description, BigDecimal price, Group group) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.group = group;
+
+    }
+
+    public Product(Long id, String name, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
 }
