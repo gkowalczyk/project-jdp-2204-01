@@ -4,26 +4,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "CARTS")
 @Data
 @NoArgsConstructor
 public class Cart {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CART_ID", nullable = false)
+    @NotNull
+    @GeneratedValue
+    @Column(name="CART_ID", unique=true)
     private Long id;
 
-    @Column (name = "QUANTITY")
-    private Long quantity;
-
-    @JoinColumn
-    @Column(name = "USER_ID")
-    private Long userId;
-
-    @JoinColumn
-    @ManyToMany
-    @Column (name = "PRODUCT_ID")
-    private Long productId;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "JOIN_PRODUCT_CART",
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
+    )
+    private List<Product> products = new ArrayList<>();
 }
