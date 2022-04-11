@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/v1/products")
 @RequiredArgsConstructor
-//@CrossOrigin("*") - in case of an external Client requests
 public class ProductController {
 
     private final ProductDBService productDBService;
@@ -39,11 +37,12 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto) {
-        Product product = productMapper.mapToProduct(productDto);
-        Product updatedProduct = productDBService.saveProduct(product);
-        return ResponseEntity.ok(productMapper.mapToProductDto(updatedProduct));
+    @PutMapping(value = "{productId}")
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto, @PathVariable Long productId) throws ProductNotFoundException {
+        Product productToUpdate = productDBService.getProductById(productId);
+        Product updatedProduct = productMapper.mapToUpdatedProduct(productDto, productToUpdate);
+        Product savedUpdatedProduct = productDBService.saveProduct(updatedProduct);
+        return ResponseEntity.ok(productMapper.mapToProductDto(savedUpdatedProduct));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

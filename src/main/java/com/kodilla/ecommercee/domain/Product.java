@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-@Data
+@Getter
 @Entity
 @Table(name="PRODUCTS")
 public class Product {
@@ -42,12 +44,11 @@ public class Product {
         this.description = description;
         this.price = price;
         this.group = group;
-
     }
 
-    public Product(Long id, String name, BigDecimal price) {
-        this.id = id;
+    public Product(String name, String description, BigDecimal price) {
         this.name = name;
+        this.description = description;
         this.price = price;
     }
 }

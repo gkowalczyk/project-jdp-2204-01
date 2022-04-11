@@ -20,10 +20,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     @Override
     Optional<Product> findById(Long id);
-    //Optionally - find by name
 
-    @Override
     void deleteById(Long id);
-
-
 }

@@ -12,11 +12,11 @@ public class ProductMapper {
 
     public Product mapToProduct(final ProductDto productDto) {
         return new Product(
-                productDto.getId(),
+                //productDto.getId(),
                 productDto.getName(),
-                productDto.getPrice()
-                //product.getGroupId()
-                //product.getCartId
+                productDto.getDescription(),
+                productDto.getPrice(),
+                productDto.getGroup()
         );
     }
 
@@ -24,9 +24,19 @@ public class ProductMapper {
         return new ProductDto(
                 product.getId(),
                 product.getName(),
-                product.getPrice()
-                //product.getGroupId()
-                //product.getCartId()
+                product.getDescription(),
+                product.getPrice(),
+                product.getGroup()
+        );
+    }
+
+    public Product mapToUpdatedProduct(final ProductDto productDto, final Product product) {
+        return new Product(
+                //product.getId(),
+                productDto.getName(),
+                productDto.getDescription(),
+                productDto.getPrice(),
+                productDto.getGroup()
         );
     }
 

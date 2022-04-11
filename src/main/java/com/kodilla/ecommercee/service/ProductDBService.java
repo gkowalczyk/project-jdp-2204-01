@@ -15,7 +15,6 @@ public class ProductDBService {
 
     @Autowired
     private final ProductRepository productRepository;
-    //also possible to inject through a constructor
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
