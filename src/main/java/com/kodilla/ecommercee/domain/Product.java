@@ -37,17 +37,14 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
 
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private List<Order> orders = new ArrayList<>();
+
     public Product(String name, String description, BigDecimal price, Group group) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.group = group;
 
-    }
-
-    public Product(Long id, String name, BigDecimal price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
     }
 }
