@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.dto.GroupDto;
+import com.kodilla.ecommercee.mapper.GroupMapper;
+import com.kodilla.ecommercee.service.GroupDBService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class GroupController {
 
-    //private final DbService dbService;
+    private final GroupDBService groupDBService;
+    private final GroupMapper GroupMapper;
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<GroupDto>> getAllGroups() {
