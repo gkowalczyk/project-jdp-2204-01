@@ -1,39 +1,38 @@
 package com.kodilla.ecommercee.domain;
 
-import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@NoArgsConstructor
-@Getter
-@Setter
-@AllArgsConstructor
 @Entity
+@Data
 @Table(name = "USERS")
-
+@NoArgsConstructor
 public class User {
-
     @Id
-    @GeneratedValue
-    @NotNull
-    @Column(name = "ID", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
-
-    @Column(name = "USERNAME")
+    @Column(name = "username")
     private String userName;
-
-    @Column(name = "PERSONALKEY")
+    @Column(name = "personalkey")
     private String personalKey;
-
-    // @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) // implementation after fix the database structure
-    // @JoinColumn(name = "CART_ID")
-    // private Cart Cart;
-
-    @Column(name = "ISACTIVE")
+    @Column(name = "isactive")
     private boolean isActive;
 
-    // @ManyToOne(cascade = CascadeType.PERSIST)//// implementation after fix the database structure
-    // @JoinColumn(name = "ORDER_ID")
-    //  public Order order;
+    @OneToMany(
+            targetEntity = Order.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+
+    private List<Order>orderList = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 }
