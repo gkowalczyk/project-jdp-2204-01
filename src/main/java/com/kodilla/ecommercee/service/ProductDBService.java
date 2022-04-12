@@ -20,7 +20,7 @@ public class ProductDBService {
         return productRepository.findAll();
     }
 
-    public Product getProductById(Long id) throws ProductNotFoundException {
+    public Product getProductById(final Long id) throws ProductNotFoundException {
         return productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
     }
 
@@ -28,7 +28,7 @@ public class ProductDBService {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(Long id) {
+    public void deleteProduct(final Long id) {
         productRepository.deleteById(id);
     }
 }

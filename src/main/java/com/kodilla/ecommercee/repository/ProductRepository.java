@@ -12,7 +12,7 @@ import java.util.Optional;
 @SuppressWarnings("unchecked")
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    @Override
+   @Override
     List<Product> findAll();
 
     @Override

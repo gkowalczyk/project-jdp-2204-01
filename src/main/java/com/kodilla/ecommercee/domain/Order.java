@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -11,22 +12,24 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "ORDER_ID", unique = true, nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "JOIN_PRODUCT_ORDER",
+            joinColumns = {@JoinColumn(name = "ORDER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID")}
+    )
+    private List<Product> products;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
-    public Order(Cart cart, User user) {
-        this.cart = cart;
+    public Order(User user) {
         this.user = user;
     }
 }

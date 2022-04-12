@@ -1,8 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-@Getter
+@Data
 @Entity
 @Table(name="PRODUCTS")
 public class Product {
@@ -39,16 +37,14 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
 
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private List<Order> orders = new ArrayList<>();
+
     public Product(String name, String description, BigDecimal price, Group group) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.group = group;
-    }
 
-    public Product(String name, String description, BigDecimal price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
     }
 }
