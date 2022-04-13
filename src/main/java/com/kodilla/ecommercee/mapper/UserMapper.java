@@ -17,7 +17,9 @@ public class UserMapper {
                 userDto.getId(),
                 userDto.getUserName(),
                 userDto.getPersonalKey(),
-                userDto.isActive()
+                userDto.isActive(),
+                userDto.getOrderList(),
+                userDto.getCart()
         );
     }
 
@@ -26,13 +28,9 @@ public class UserMapper {
                 user.getId(),
                 user.getUserName(),
                 user.getPersonalKey(),
-                user.isActive()
+                user.isActive(),
+                user.getOrderList(),
+                user.getCart()
         );
     }
-
-    public List<UserDto> mapToUserDtoList(final List<User> usersList) {
-        return usersList.stream()
-                .map(this::mapToUserDto)
-                .collect(Collectors.toList());
-    }
-}
+  }
