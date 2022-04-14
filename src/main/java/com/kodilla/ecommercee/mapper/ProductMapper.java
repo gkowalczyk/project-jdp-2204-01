@@ -11,7 +11,6 @@ public class ProductMapper {
 
     public Product mapToProduct(final ProductDto productDto) {
         return new Product(
-                //productDto.getId(),
                 productDto.getName(),
                 productDto.getDescription(),
                 productDto.getPrice(),
@@ -30,13 +29,11 @@ public class ProductMapper {
     }
 
     public Product mapToUpdatedProduct(final ProductDto productDto, final Product product) {
-        return new Product(
-                //product.getId(),
-                productDto.getName(),
-                productDto.getDescription(),
-                productDto.getPrice(),
-                productDto.getGroup()
-        );
+        product.setName(product.getName());
+        product.setDescription(product.getDescription());
+        product.setPrice(productDto.getPrice());
+        product.setGroup(productDto.getGroup());
+        return product;
     }
 
     public List<ProductDto> mapToProductDtoList(final List<Product> productList) {

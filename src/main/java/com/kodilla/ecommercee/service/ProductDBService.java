@@ -24,8 +24,8 @@ public class ProductDBService {
         return productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
     }
 
-    public Product saveProduct(final Product product) {
-        return productRepository.save(product);
+    public void saveProduct(final Product product) {
+        productRepository.save(product);
     }
 
     public void deleteProduct(final Long id) {

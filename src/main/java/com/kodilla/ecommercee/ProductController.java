@@ -38,11 +38,11 @@ public class ProductController {
     }
 
     @PutMapping(value = "{productId}")
-    public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto, @PathVariable Long productId) throws ProductNotFoundException {
+    public ResponseEntity<Void> updateProduct(@RequestBody ProductDto productDto, @PathVariable Long productId) throws ProductNotFoundException {
         Product productToUpdate = productDBService.getProductById(productId);
         Product updatedProduct = productMapper.mapToUpdatedProduct(productDto, productToUpdate);
-        Product savedUpdatedProduct = productDBService.saveProduct(updatedProduct);
-        return ResponseEntity.ok(productMapper.mapToProductDto(savedUpdatedProduct));
+        productDBService.saveProduct(updatedProduct);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
