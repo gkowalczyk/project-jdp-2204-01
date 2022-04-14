@@ -29,11 +29,13 @@ public class ProductMapper {
     }
 
     public Product mapToUpdatedProduct(final ProductDto productDto, final Product product) {
-        product.setName(product.getName());
-        product.setDescription(product.getDescription());
-        product.setPrice(productDto.getPrice());
-        product.setGroup(productDto.getGroup());
-        return product;
+        return new Product(
+                product.getId(),
+                productDto.getName(),
+                productDto.getDescription(),
+                productDto.getPrice(),
+                productDto.getGroup()
+        );
     }
 
     public List<ProductDto> mapToProductDtoList(final List<Product> productList) {
