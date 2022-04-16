@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,7 +24,7 @@ public class Order {
             joinColumns = {@JoinColumn(name = "ORDER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID")}
     )
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
