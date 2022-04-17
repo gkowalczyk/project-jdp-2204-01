@@ -11,12 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
+
 import java.math.BigDecimal;
 import java.util.List;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,12 +22,14 @@ import static org.junit.Assert.assertNotNull;
 @Transactional
 public class GroupTestSuite {
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    ProductRepository productRepository;
+
 
     private Group trousers;
     private Group hats;
+    private List<Product> allProducts;
 
     @Before
     public void beforeEach() {
@@ -37,20 +37,12 @@ public class GroupTestSuite {
         hats = new Group("hats");
         trousers = groupRepository.save(trousers);
         hats = groupRepository.save(hats);
-        Product product1 = new Product("Blue Jeans", "new cpllection", new BigDecimal(299.99), trousers);
-        Product product2 = new Product("Overalls", "tralalala ", new BigDecimal(99.99), trousers);
-        Product product3 = new Product("cap", "new cap", new BigDecimal(15.99), hats);
-        productRepository.save(product1);
-        productRepository.save(product2);
-        productRepository.save(product3);
     }
 
     @After
     public void cleanUp() {
-        List<Group> allProducts = groupRepository.findAll();
-        allProducts.forEach(product -> productRepository.deleteById(product.getId()));
-        groupRepository.delete(trousers);
-        groupRepository.delete(hats);
+        List<Group> allGroups = groupRepository.findAll();
+        groupRepository.deleteAll();
     }
 
 
@@ -65,6 +57,7 @@ public class GroupTestSuite {
 
         List<Group> allGroups = groupRepository.findAll();
         assertEquals(3, allGroups.size());
+
     }
 
     @Test
@@ -77,31 +70,53 @@ public class GroupTestSuite {
         assertEquals(1L, (long) newGroup.getId());
     }
 
+
     @Test
     public void testUpdateGroup() {
         //Given
         String newName = "updatedGroup";
-        Group group = groupRepository.findById(2L).get();
-        assertNotNull(group);
+        Group group1 = groupRepository.findById(2L).get();
+        assertNotNull(group1);
         //When
-        group.setName(newName);
+        group1.setName(newName);
 
-        group = groupRepository.findById(2L).get();
+        group1 = groupRepository.findById(2L).get();
         //Then
-        assertEquals(newName, group.getName());
+        assertEquals(newName, group1.getName());
 
     }
+
 
     @Test
     public void testDeleteGroup() {
         //Given
         List<Group> allGroups = groupRepository.findAll();
         assertEquals(2, allGroups.size());
-        //When
-        groupRepository.delete(trousers);
-        groupRepository.delete(hats);
-        //Then
-        assertEquals(0, allGroups.size());
 
+        //When
+        groupRepository.deleteById(2L);
+        allGroups = groupRepository.findAll();
+
+        //Then
+        assertEquals(1, allGroups.size());
     }
 }
+
+//    @Test
+//    public void testProductStaysWhenGroupDeleted() {
+//        //Given
+//
+//
+//        Product product1 = new Product("Blue Jeans", "new cpllection", new BigDecimal(299.99), trousers);
+//        Product product2 = new Product("Overalls", "tralalala ", new BigDecimal(99.99), trousers);
+//        Product product3 = new Product("cap", "new cap", new BigDecimal(15.99), hats);
+//
+//
+//        //When
+//        groupRepository.delete(trousers);
+//        allProducts = productRepository.findAll();
+//
+//
+//        //Then
+//        assertEquals(3, allProducts.size());
+

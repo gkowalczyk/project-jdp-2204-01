@@ -17,4 +17,10 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
 
     @Override
     List<Group> findAll();
+
+    @Override
+    Group save(Group group);
+
+    @Override
+    void deleteById(Long id);
 }
