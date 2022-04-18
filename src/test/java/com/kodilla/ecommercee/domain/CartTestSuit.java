@@ -2,14 +2,12 @@ package com.kodilla.ecommercee.domain;
 
 
 import com.kodilla.ecommercee.repository.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -18,7 +16,6 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
 @Transactional
@@ -41,7 +38,7 @@ public class CartTestSuit {
     Cart cart;
     Long userId;
 
-    @Before
+    @BeforeEach
     public void beforeEach(){
 
         User user = new User("Jan Kowalski", "personalKey", true);
@@ -66,7 +63,7 @@ public class CartTestSuit {
         cartRepository.save(cart);
     }
 
-    @After
+    @AfterEach
     public void cleanUp() {
         orderRepository.deleteAll();
         userRepository.deleteAll();
