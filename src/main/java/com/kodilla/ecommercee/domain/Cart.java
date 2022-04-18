@@ -22,8 +22,8 @@ public class Cart {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "JOIN_PRODUCT_CART",
-            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
+            joinColumns = {@JoinColumn(name = "CART_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID")}
     )
     private List<Product> products = new ArrayList<>();
 }
