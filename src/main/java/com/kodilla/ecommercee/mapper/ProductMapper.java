@@ -2,12 +2,11 @@ package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.dto.ProductDto;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class ProductMapper {
 
     public Product mapToProduct(final ProductDto productDto) {
@@ -23,9 +22,19 @@ public class ProductMapper {
         return new ProductDto(
                 product.getId(),
                 product.getName(),
-                product.getPrice()
-                //product.getGroupId()
-                //product.getCartId()
+                product.getDescription(),
+                product.getPrice(),
+                product.getGroup()
+        );
+    }
+
+    public Product mapToUpdatedProduct(final ProductDto productDto, final Product product) {
+        return new Product(
+                product.getId(),
+                productDto.getName(),
+                productDto.getDescription(),
+                productDto.getPrice(),
+                productDto.getGroup()
         );
     }
 
