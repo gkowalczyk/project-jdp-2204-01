@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @NoArgsConstructor
+@Data
 @Entity
 @Table(name="product_group")
 public class Group {
@@ -28,7 +28,6 @@ public class Group {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-
     private List<Product> products = new ArrayList<>();
 
     public Group(String name) {
