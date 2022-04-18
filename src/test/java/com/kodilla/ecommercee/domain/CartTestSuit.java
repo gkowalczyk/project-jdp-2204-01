@@ -43,12 +43,6 @@ public class CartTestSuit {
 
     @Before
     public void beforeEach(){
-        System.out.println("klejny TEST");
-        orderRepository.deleteAll();
-        userRepository.deleteAll();
-        cartRepository.deleteAll();
-        productRepository.deleteAll();
-        groupRepository.deleteAll();
 
         User user = new User("Jan Kowalski", "personalKey", true);
         userRepository.save(user);
@@ -79,8 +73,6 @@ public class CartTestSuit {
         cartRepository.deleteAll();
         productRepository.deleteAll();
         groupRepository.deleteAll();
-
-        System.out.println("po wszystkim");
     }
 
     @Test
