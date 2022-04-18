@@ -23,8 +23,6 @@ class UserTestSuite {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
     private CartRepository cartRepository;
 
     @Test
