@@ -9,17 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-
-    @Override
-    List<User> findAll();
-
-    @Override
-    User save(User user);
-
-    @Override
-    Optional<User> findById(Long id);
-
-    @Override
-    void deleteById(Long id);
 }
 
