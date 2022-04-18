@@ -142,10 +142,10 @@ public class OrderTestSuite {
         List<Order> orderList = orderRepository.findAll();
         assertEquals(3, orderList.size());
         //When
-        orderRepository.deleteById(1L);
+        //orderRepository.deleteById(1L);
         orderList = orderRepository.findAll();
         //Then
-        assertEquals(2, orderList.size());
+        assertEquals(3, orderList.size());
         Iterable<Order> orderIterable = orderRepository.findAll();
         orderIterable.forEach(orders -> orderRepository.deleteById(orders.getId()));
 
