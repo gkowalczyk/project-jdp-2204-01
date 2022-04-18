@@ -21,11 +21,20 @@ public class ProductMapper {
 
     public ProductDto mapToProductDto(final Product product) {
         return new ProductDto(
-                product.getId(),
                 product.getName(),
-                product.getPrice()
-                //product.getGroupId()
-                //product.getCartId()
+                product.getDescription(),
+                product.getPrice(),
+                product.getGroup()
+        );
+    }
+
+    public Product mapToUpdatedProduct(final ProductDto productDto, final Product product) {
+        return new Product(
+                product.getId(),
+                productDto.getName(),
+                productDto.getDescription(),
+                productDto.getPrice(),
+                productDto.getGroup()
         );
     }
 

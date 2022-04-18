@@ -18,8 +18,6 @@ public class UserController {
 
     @Autowired
     private final UserService userService;
-    @Autowired
-    private final UserMapper userMapper;
 
     //method to check USER token only, in POSTMAN->HEADERS->KEY(Authorization), VALUE(copy generate token from @PostMapping("user"))
      // @RequestMapping("check")
@@ -28,16 +26,16 @@ public class UserController {
 
     @PostMapping(value = "create",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        User user = userMapper.mapToUser(userDto);
+        User user = UserMapper.mapUserDtoToUser(userDto);
         userService.createUser(user);
         return ResponseEntity.ok().build();
 
     }
     @PutMapping
     public ResponseEntity<UserDto> blockUser(@RequestBody UserDto userDto)  {
-        User user = userMapper.mapToUser(userDto);
+        User user = UserMapper.mapUserDtoToUser(userDto);
         User userBlocked = userService.blockUser(user);
-        return ResponseEntity.ok(userMapper.mapToUserDto(userBlocked));
+        return ResponseEntity.ok(UserMapper.mapUserToUserDto(userBlocked));
 
     }
     @PostMapping("user")
