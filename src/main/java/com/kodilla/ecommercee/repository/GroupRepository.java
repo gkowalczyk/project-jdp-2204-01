@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.repository;
 
-import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.domain.Group;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,16 +10,11 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Long> {
-
-   @Override
-    List<Product> findAll();
+public interface GroupRepository extends CrudRepository<Group, Long> {
 
     @Override
-    Product save(Product product);
+    Optional<Group> findById(Long id);
 
     @Override
-    Optional<Product> findById(Long id);
-
-    void deleteById(Long id);
+    List<Group> findAll();
 }
