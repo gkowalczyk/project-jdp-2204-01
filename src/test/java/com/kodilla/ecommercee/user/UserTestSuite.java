@@ -92,4 +92,5 @@ class UserTestSuite {
         //CleanUp
         userRepository.deleteById(userId);
     }
+
 }
