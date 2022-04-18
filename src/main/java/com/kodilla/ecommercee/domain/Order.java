@@ -31,4 +31,8 @@ public class Order {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    public Order(User user) {
+        this.user = user;
+    }
+
 }
