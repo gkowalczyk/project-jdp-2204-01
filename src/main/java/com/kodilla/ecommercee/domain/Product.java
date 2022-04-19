@@ -2,6 +2,8 @@ package com.kodilla.ecommercee.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,7 +19,8 @@ public class Product {
 
     @Id
     @NotNull
-    @GeneratedValue
+    @SequenceGenerator(name = "productSequence", sequenceName = "productSequence", allocationSize = 1)
+    @GeneratedValue(generator = "productSequence")
     @Column(name = "PRODUCT_ID", unique = true)
     private Long id;
 
@@ -31,11 +34,15 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "GROUP_ID")
+    //@Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "group_id")
     private Group group;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private List<Order> orders = new ArrayList<>();
 
     public Product(String name, String description, BigDecimal price, Group group) {
         this.name = name;
@@ -44,10 +51,12 @@ public class Product {
         this.group = group;
 
     }
-
-    public Product(Long id, String name, BigDecimal price) {
+  
+  public Product(Long id, String name, String description, BigDecimal price, Group group) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.price = price;
+        this.group = group;
     }
 }
