@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -34,5 +35,4 @@ public class Order {
     public Order(User user) {
         this.user = user;
     }
-
 }

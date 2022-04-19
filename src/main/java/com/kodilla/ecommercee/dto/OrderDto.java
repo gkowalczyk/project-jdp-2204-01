@@ -17,8 +17,7 @@ public class OrderDto {
     private List<Product> products = new ArrayList<>();
     private UserDto userDto;
 
-    public OrderDto(CartDto cartDto, UserDto userDto) {
-        this.cartDto = cartDto;
+    public OrderDto(UserDto userDto) {
         this.userDto = userDto;
     }
 }

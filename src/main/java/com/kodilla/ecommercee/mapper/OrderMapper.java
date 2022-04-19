@@ -1,27 +1,29 @@
 package com.kodilla.ecommercee.mapper;
 
-import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.dto.CartDto;
 import com.kodilla.ecommercee.dto.OrderDto;
 import com.kodilla.ecommercee.dto.UserDto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class OrderMapper {
     public static Order mapToOrder(OrderDto orderDto){
-        CartDto cartDto = orderDto.getCartDto();
         UserDto userDto = orderDto.getUserDto();
-        Order order = new Order(orderDto.getId(), CartMapper.cartDtoToCart(cartDto),
-                UserMapper.mapUserDtoToUser(userDto));
+        Order order = new Order(UserMapper.mapUserDtoToUser(userDto));
         return order;
     }
 
+    public static List<OrderDto> mapToOrderDtoList(List<Order> orders){
+        return orders.stream()
+                .map(l->mapToOrderDto(l))
+                .collect(Collectors.toList());
+    }
+
     public static OrderDto mapToOrderDto(Order order) {
-        Cart cart = order.getCart();
         User user = order.getUser();
-        OrderDto orderDto = new OrderDto(order.getId(), CartMapper.cartToCartDto(cart),
-                UserMapper.mapUserToUserDto(user));
-        orderDto.setId(order.getId());
+        OrderDto orderDto = new OrderDto(UserMapper.mapUserToUserDto(user));
         return orderDto;
     }
 }

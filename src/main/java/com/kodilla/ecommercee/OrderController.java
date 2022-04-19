@@ -19,9 +19,10 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<List<Order>> getOrders() {
+    public ResponseEntity<List<OrderDto>> getOrders() {
         List<Order> orders = orderService.getOrders();
-        return ResponseEntity.ok(orders);
+        List<OrderDto> ordersDto = OrderMapper.mapToOrderDtoList(orders);
+        return ResponseEntity.ok(ordersDto);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -36,15 +37,15 @@ public class OrderController {
         return ResponseEntity.ok(OrderMapper.mapToOrderDto(order));
     }
 
-    @PutMapping()
-    public ResponseEntity<OrderDto> updateOrder(@RequestBody OrderDto orderDto) {
+    @PutMapping(value = "{orderId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<OrderDto> updateOrder(@PathVariable Long orderId, @RequestBody OrderDto orderDto) {
         Order order = OrderMapper.mapToOrder(orderDto);
-        orderService.updateOrder(order);
-        return ResponseEntity.ok().build();
+        Order updatedOrder = orderService.updateOrder(order, orderId);
+        return ResponseEntity.ok(OrderMapper.mapToOrderDto(updatedOrder));
     }
 
     @DeleteMapping(value = "{orderId}")
-    public ResponseEntity<Boolean> deleteOrder(@PathVariable Long orderId) {
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long orderId) {
         orderService.deleteOrder(orderId);
         return ResponseEntity.ok().build();
     }
