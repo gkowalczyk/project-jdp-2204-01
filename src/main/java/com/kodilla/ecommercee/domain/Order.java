@@ -35,5 +35,4 @@ public class Order {
     public Order(User user) {
         this.user = user;
     }
-
 }
