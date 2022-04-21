@@ -19,23 +19,23 @@ public class GroupController {
     private final GroupDBService groupDBService;
     private final GroupMapper groupMapper;
 
-    @GetMapping(value = "/all")
+    @GetMapping
     public ResponseEntity<List<GroupDto>> getAllGroups() {
         List<Group> groups = groupDBService.getAllGroups();
         return ResponseEntity.ok(groupMapper.mapToGroupDtoList(groups));
     }
 
-    @GetMapping(value = "/{groupId}")
+    @GetMapping(value = "{groupId}")
     public ResponseEntity<GroupDto> getGroup(@PathVariable Long groupId) throws GroupNotFoundException {
 
         return ResponseEntity.ok(groupMapper.mapToGroupDto(groupDBService.getGroupById(groupId)));
     }
 
-    @PutMapping(value = "/{groupId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "{groupId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupDto> updateGroup(@PathVariable Long groupId, @RequestBody GroupDto groupDto) {
         Group group = groupMapper.mapToGroup(groupDto);
-        Group uptatedGroup = groupDBService.saveGroup(group);
-        return ResponseEntity.ok(groupMapper.mapToGroupDto(uptatedGroup));
+        Group updatedGroup = groupDBService.saveGroup(group);
+        return ResponseEntity.ok(groupMapper.mapToGroupDto(updatedGroup));
     }
 
 
