@@ -37,4 +37,10 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
     @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    public User(String userName, String personalKey, boolean isActive) {
+        this.userName = userName;
+        this.personalKey = personalKey;
+        this.isActive = isActive;
+    }
 }

@@ -19,7 +19,7 @@ public class Product {
 
     @Id
     @NotNull
-    @SequenceGenerator(name = "productSequence", sequenceName = "productSequence", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "productSequence", sequenceName = "productSequence", allocationSize = 1)
     @GeneratedValue(generator = "productSequence")
     @Column(name = "PRODUCT_ID", unique = true)
     private Long id;
@@ -35,7 +35,7 @@ public class Product {
 
     @ManyToOne
     //@Fetch(FetchMode.JOIN)
-    @JoinColumn(name = "GROUP_ID")
+    @JoinColumn(name = "group_id")
     private Group group;
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
@@ -49,7 +49,6 @@ public class Product {
         this.description = description;
         this.price = price;
         this.group = group;
-
     }
   
   public Product(Long id, String name, String description, BigDecimal price, Group group) {
