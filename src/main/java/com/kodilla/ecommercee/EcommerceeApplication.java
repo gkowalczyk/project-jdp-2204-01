@@ -2,8 +2,6 @@ package com.kodilla.ecommercee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,6 +26,11 @@ public class EcommerceeApplication {
                         .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                         .authorizeRequests()
                         .antMatchers(HttpMethod.POST, "/v1/users/user").permitAll()
+                        .antMatchers(HttpMethod.POST, "/v1/carts/new/{userId}").permitAll()
+                        .antMatchers(HttpMethod.GET, "/v1/carts/{cartId}").permitAll()
+                        .antMatchers(HttpMethod.POST, "/v1/carts/addProduct/{cartId}/{productId}").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/v1/carts/deleteProduct/{cartId}/{productId}").permitAll()
+                        .antMatchers(HttpMethod.POST, "/v1/carts/order/{cartId}").permitAll()
                         .anyRequest().authenticated();
             }
         }

@@ -6,10 +6,12 @@ import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.transaction.Transactional;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
@@ -18,7 +20,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@Transactional
 
 public class OrderTestSuite {
 
@@ -88,9 +93,9 @@ public class OrderTestSuite {
         //cleanup
         Iterable<Order> orderIterable = orderRepository.findAll();
         orderIterable.forEach(orders -> orderRepository.deleteById(orders.getId()));
-        groupRepository.delete(group);
         Iterable<Product> productIterable = productRepository.findAll();
         productIterable.forEach(p -> productRepository.deleteById(p.getId()));
+        groupRepository.delete(group);
     }
 
     @Test

@@ -4,9 +4,10 @@ import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +23,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 public class ProductTestSuit {
 
@@ -38,7 +39,7 @@ public class ProductTestSuit {
     private Group jackets;
     private Group blouses;
 
-    @Before
+    @BeforeEach
     public void beforeEach() {
         jackets = new Group("jackets");
         blouses = new Group("blouses");
@@ -52,7 +53,7 @@ public class ProductTestSuit {
         productRepository.save(product3);
     }
 
-   @After
+   @AfterEach
     public void cleanUp() {
         List<Product> allProducts = productRepository.findAll();
         allProducts.forEach(product -> productRepository.deleteById(product.getId()));
@@ -135,7 +136,7 @@ public class ProductTestSuit {
         List<Product> allProducts = productRepository.findAll();
         cart.setProducts(allProducts);
         cartRepository.save(cart);
-        assertNotNull(cart.getId());
+        assertNotNull(cart.getCartId());
         assertEquals(3, cart.getProducts().size());
         //When
         cart.getProducts().remove(1);
