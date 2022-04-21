@@ -44,7 +44,6 @@ public class Product {
         this.description = description;
         this.price = price;
         this.group = group;
-
     }
   
   public Product(Long id, String name, String description, BigDecimal price, Group group) {
