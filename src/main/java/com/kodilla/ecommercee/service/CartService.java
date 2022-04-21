@@ -71,7 +71,7 @@ public class CartService {
         Optional<Product> product = productRepository.findById(productId);
 
         if(!product.isPresent()) {
-            throw new ProductNotFoundException("Produkt o id " + productId + "nie istnieje w bazie danych");
+            throw new ProductNotFoundException("Task with given id doesn't exist");
         }
 
         boolean removed = cart.getProducts().remove(product.get());

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 @NoArgsConstructor
 @Data
@@ -54,22 +54,4 @@ public class Product {
         this.group = group;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Product product = (Product) o;
-
-        return id != null ? id.equals(product.id) : product.id == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    public String toString() {
-        return id.toString();
-    }
 }
