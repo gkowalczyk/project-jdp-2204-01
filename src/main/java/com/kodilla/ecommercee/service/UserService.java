@@ -28,8 +28,8 @@ public class UserService {
         return userRepository.save(user);
 
     }
-
     public String getJWTToken(String username) {
+
 
         String secretKey = "mySecretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
@@ -47,5 +47,13 @@ public class UserService {
                 .signWith(SignatureAlgorithm.HS512,
                         secretKey.getBytes()).compact();
         return "kodilla_token " + token;
+
+    }
+    public void saveUserData( String username, String token) {
+        User user = new User();
+        user.setUserName(username);
+        user.setPersonalKey(token);
+        user.setActive(true);
+        userRepository.save(user);
     }
 }

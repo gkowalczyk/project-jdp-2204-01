@@ -19,11 +19,6 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
-    //method to check USER token only, in POSTMAN->HEADERS->KEY(Authorization), VALUE(copy generate token from @PostMapping("user"))
-     // @RequestMapping("check")
-   // public String checkToken(@RequestParam(defaultValue = "OK") String name) {
-          //return "access after putting generate token=" + name;
-
     @PostMapping(value = "create",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
         User user = UserMapper.mapUserDtoToUser(userDto);
@@ -39,12 +34,10 @@ public class UserController {
 
     }
     @PostMapping("user")
-    public ResponseEntity<User> generateToken(@RequestParam("user") String username, @RequestParam("password") String key) {
-        String token = userService.getJWTToken(username);
-        User user = new User();
-        user.setUserName(username);
-        user.setPersonalKey(token);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<Void> generateToken(@RequestParam("user") String username, @RequestParam("password") String key) {
+        String token = userService.getJWTToken(key);
+        userService.saveUserData(username, token);
+        return ResponseEntity.ok().build();
     }
 }
 
