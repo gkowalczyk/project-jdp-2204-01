@@ -2,14 +2,11 @@ package com.kodilla.ecommercee.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @NoArgsConstructor
 @Data
@@ -18,10 +15,9 @@ import java.util.List;
 public class Product {
 
     @Id
-    @NotNull
     @SequenceGenerator(name = "productSequence", sequenceName = "productSequence", allocationSize = 1)
     @GeneratedValue(generator = "productSequence")
-    @Column(name = "PRODUCT_ID", unique = true)
+    @Column(name = "PRODUCT_ID", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "NAME")
@@ -34,14 +30,13 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne
-    //@Fetch(FetchMode.JOIN)
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(cascade = CascadeType.DETACH, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(cascade = CascadeType.DETACH, mappedBy = "products")
     private List<Order> orders = new ArrayList<>();
 
     public Product(String name, String description, BigDecimal price, Group group) {
@@ -58,5 +53,24 @@ public class Product {
         this.description = description;
         this.price = price;
         this.group = group;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return id != null ? id.equals(product.id) : product.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    public String toString() {
+        return id.toString();
     }
 }

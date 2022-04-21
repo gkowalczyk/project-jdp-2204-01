@@ -1,5 +1,8 @@
 package com.kodilla.ecommercee.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Order;
@@ -14,8 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductDto {
 
+    private Long id;
+
     private String name;
+
     private String description;
+
     private BigDecimal price;
+
     private Group group;
 }

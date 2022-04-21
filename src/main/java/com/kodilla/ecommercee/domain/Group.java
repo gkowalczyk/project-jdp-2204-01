@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,9 +16,8 @@ import java.util.List;
 public class Group {
 
     @Id
-    @NotNull
-    @GeneratedValue
-    @Column(name="group_id", unique=true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="group_id", unique=true, nullable = false)
     private Long id;
 
     private String name;
@@ -28,9 +28,25 @@ public class Group {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
     public Group(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Group group = (Group) o;
+
+        return id.equals(group.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }
