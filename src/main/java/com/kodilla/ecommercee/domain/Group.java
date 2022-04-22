@@ -11,13 +11,13 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="GROUPS")
+@Table(name="product_group")
 public class Group {
 
     @Id
     @NotNull
     @GeneratedValue
-    @Column(name="GROUP_ID", unique=true)
+    @Column(name="group_id", unique=true)
     private Long id;
 
     private String name;
