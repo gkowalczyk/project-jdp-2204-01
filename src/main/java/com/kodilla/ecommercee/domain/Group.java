@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +32,10 @@ public class Group {
     private List<Product> products = new ArrayList<>();
 
     public Group(String name) {
+        this.name = name;
+    }
+    public Group(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
