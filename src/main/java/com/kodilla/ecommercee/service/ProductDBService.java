@@ -15,21 +15,20 @@ public class ProductDBService {
 
     @Autowired
     private final ProductRepository productRepository;
-    //also possible to inject through a constructor
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    public Product getProductById(Long id) throws ProductNotFoundException {
+    public Product getProductById(final Long id) throws ProductNotFoundException {
         return productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
     }
 
-    public Product saveProduct(final Product product) {
-        return productRepository.save(product);
+    public void saveProduct(final Product product) {
+        productRepository.save(product);
     }
 
-    public void deleteProduct(Long id) {
+    public void deleteProduct(final Long id) {
         productRepository.deleteById(id);
     }
 }

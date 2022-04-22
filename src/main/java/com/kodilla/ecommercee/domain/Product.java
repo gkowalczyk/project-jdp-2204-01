@@ -2,12 +2,11 @@ package com.kodilla.ecommercee.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @NoArgsConstructor
 @Data
@@ -16,9 +15,9 @@ import java.util.List;
 public class Product {
 
     @Id
-    @NotNull
-    @GeneratedValue
-    @Column(name = "PRODUCT_ID", unique = true)
+    @SequenceGenerator(name = "productSequence", sequenceName = "productSequence", allocationSize = 1)
+    @GeneratedValue(generator = "productSequence")
+    @Column(name = "PRODUCT_ID", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "NAME")
@@ -31,13 +30,13 @@ public class Product {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "GROUP_ID")
+    @JoinColumn(name = "group_id")
     private Group group;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(cascade = CascadeType.DETACH, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(cascade = CascadeType.DETACH, mappedBy = "products")
     private List<Order> orders = new ArrayList<>();
 
     public Product(String name, String description, BigDecimal price, Group group) {
@@ -45,6 +44,14 @@ public class Product {
         this.description = description;
         this.price = price;
         this.group = group;
-
     }
+  
+  public Product(Long id, String name, String description, BigDecimal price, Group group) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.group = group;
+    }
+
 }

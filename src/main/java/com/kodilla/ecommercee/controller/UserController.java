@@ -1,35 +1,43 @@
 package com.kodilla.ecommercee.controller;
 
 
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.dto.UserDto;
+import com.kodilla.ecommercee.mapper.UserMapper;
+import com.kodilla.ecommercee.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Random;
-
 @RestController
-@RequestMapping("/v1/user")
-@Validated
+@RequiredArgsConstructor
+@RequestMapping("v1/users")
 public class UserController {
 
+    @Autowired
+    private final UserService userService;
 
-    @RequestMapping(method = RequestMethod.POST,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "create",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        return ResponseEntity.ok(userDto);
+        User user = UserMapper.mapUserDtoToUser(userDto);
+        userService.createUser(user);
+        return ResponseEntity.ok().build();
 
     }
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<UserDto> blockUserId(@RequestBody UserDto userDto)  {
-        userDto.setActive(false);
-        return ResponseEntity.ok(userDto);
+    @PutMapping
+    public ResponseEntity<UserDto> blockUser(@RequestBody UserDto userDto)  {
+        User user = UserMapper.mapUserDtoToUser(userDto);
+        User userBlocked = userService.blockUser(user);
+        return ResponseEntity.ok(UserMapper.mapUserToUserDto(userBlocked));
 
     }
-    @RequestMapping(method = RequestMethod.GET, value = "token/{userId}")
-    public  ResponseEntity<String> getToken(@PathVariable Long userId) {
-        Random random = new Random();
-        String tokenUserKey = String.valueOf(random.nextInt(99999999)) ;
-        return ResponseEntity.ok("Your personal key for userID:" + userId + "=" + tokenUserKey);
+    @PostMapping("user")
+    public ResponseEntity<Void> generateToken(@RequestParam("user") String username, @RequestParam("password") String key) {
+        String token = userService.getJWTToken(key);
+        userService.saveUserData(username, token);
+        return ResponseEntity.ok().build();
     }
 }
+
