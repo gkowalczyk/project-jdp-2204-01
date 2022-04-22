@@ -5,9 +5,11 @@ import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,16 @@ class UserTestSuite {
     private UserRepository userRepository;
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private ProductRepository productRepository;
+
+    @BeforeEach
+    public void init() {
+        orderRepository.deleteAll();
+        userRepository.deleteAll();
+        productRepository.deleteAll();
+        cartRepository.deleteAll();
+    }
 
     @Test
     void testPlainUserSave() {
@@ -52,8 +64,14 @@ class UserTestSuite {
 
     @Test
     void testSaveUserWithCartAndOrder() {
+        orderRepository.deleteAll();
+        userRepository.deleteAll();
+        cartRepository.deleteAll();
+        productRepository.deleteAll();
+
         //Given
         Product product = new Product();
+        product = productRepository.save(product);
         List<Product> productList = new ArrayList<>();
         productList.add(product);
 
