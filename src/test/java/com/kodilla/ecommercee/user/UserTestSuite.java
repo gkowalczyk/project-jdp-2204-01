@@ -72,7 +72,7 @@ class UserTestSuite {
         User savedUser = userRepository.save(user);
         Long userId = savedUser.getId();
         Cart savedCart = cartRepository.save(cart);
-        Long cartId = savedCart.getId();
+        Long cartId = savedCart.getCartId();
         Order savedOrder = orderRepository.save(order);
         Long orderId = savedOrder.getId();
 
