@@ -5,8 +5,8 @@ import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
 @Transactional
 public class ProductTestSuit {
 
@@ -38,6 +38,9 @@ public class ProductTestSuit {
 
     private Group jackets;
     private Group blouses;
+    private Product product1;
+    private Product product2;
+    private Product product3;
 
     @BeforeEach
     public void beforeEach() {
@@ -45,20 +48,20 @@ public class ProductTestSuit {
         blouses = new Group("blouses");
         jackets = groupRepository.save(jackets);
         blouses = groupRepository.save(blouses);
-        Product product1 = new Product("Denim jacket", "Jacket in sturdy cotton denim with a collar", new BigDecimal(250.99), jackets);
-        Product product2 = new Product("Oversized biker jacket", "Oversized biker jacket with a diagonal zip down ", new BigDecimal(350.99), jackets);
-        Product product3 = new Product("V-neck blouse", "V-neck blouse in softly draping woven fabric", new BigDecimal(60.99), blouses);
+        product1 = new Product("Denim jacket", "Jacket in sturdy cotton denim with a collar", new BigDecimal(250.99), jackets);
+        product2 = new Product("Oversized biker jacket", "Oversized biker jacket with a diagonal zip down ", new BigDecimal(350.99), jackets);
+        product3 = new Product("V-neck blouse", "V-neck blouse in softly draping woven fabric", new BigDecimal(60.99), blouses);
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
     }
 
-   @AfterEach
+    @AfterEach
     public void cleanUp() {
-        List<Product> allProducts = productRepository.findAll();
-        allProducts.forEach(product -> productRepository.deleteById(product.getId()));
-        groupRepository.delete(jackets);
-        groupRepository.delete(blouses);
+        productRepository.deleteAll();
+        groupRepository.deleteAll();
+        cartRepository.deleteAll();
+        orderRepository.deleteAll();
     }
 
 
@@ -74,33 +77,39 @@ public class ProductTestSuit {
         assertNotNull(product.getId());
         allProducts = productRepository.findAll();
         assertEquals(4, allProducts.size());
+
+        deleteAll();
     }
 
     @Test
     public void testReadProduct() {
         //When
         List<Product> allProducts = productRepository.findAll();
-        Product product = productRepository.findById(1L).get();
+        Product product = productRepository.findById(product1.getId()).get();
         //Then
         assertNotNull(product);
-        assertEquals(1L, (long) product.getId());
+        assertEquals(product1.getId(), product.getId());
         assertEquals(jackets, product.getGroup());
+
+        deleteAll();
     }
 
     @Test
     public void testUpdateProduct() {
         //Given
         String newName = "Dummy Jacket";
-        Product product = productRepository.findById(2L).get();
+        Product product = productRepository.findById(product2.getId()).get();
         assertNotNull(product);
         //When
         product.setName(newName);
         product.setGroup(blouses);
         productRepository.save(product);
-        product = productRepository.findById(2L).get();
+        product = productRepository.findById(product2.getId()).get();
         //Then
         assertEquals(newName, product.getName());
         assertEquals(blouses, product.getGroup());
+
+        deleteAll();
     }
 
     @Test
@@ -109,24 +118,27 @@ public class ProductTestSuit {
         List<Product> allProducts = productRepository.findAll();
         assertEquals(3, allProducts.size());
         //When
-        productRepository.deleteById(3L);
+        productRepository.deleteById(product3.getId());
         allProducts = productRepository.findAll();
         //Then
         assertEquals(2, allProducts.size());
-        Optional<Product> product = productRepository.findById(3L);
+        Optional<Product> product = productRepository.findById(product3.getId());
         assertFalse(product.isPresent());
+
+        deleteAll();
     }
 
     @Test
     public void testGroupStaysWhenProductDeleted() {
         //When
-        productRepository.deleteById(3L);
+        productRepository.deleteById(product3.getId());
         List<Group> groups = groupRepository.findAll();
 
         //Then
         assertFalse(groups.isEmpty());
         assertEquals(2, groups.size());
 
+        deleteAll();
     }
 
     @Test
@@ -145,6 +157,8 @@ public class ProductTestSuit {
         assertEquals(2, cart.getProducts().size());
         allProducts = productRepository.findAll();
         assertEquals(3, allProducts.size());
+
+        deleteAll();
     }
 
     @Test
@@ -163,6 +177,15 @@ public class ProductTestSuit {
         assertEquals(2, order.getProducts().size());
         allProducts = productRepository.findAll();
         assertEquals(3, allProducts.size());
+
+        deleteAll();
+    }
+
+    private void deleteAll() {
+        productRepository.deleteAll();
+        groupRepository.deleteAll();
+        cartRepository.deleteAll();
+        orderRepository.deleteAll();
     }
 }
 

@@ -5,6 +5,7 @@ import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +28,14 @@ class UserTestSuite {
     private CartRepository cartRepository;
     @Autowired
     private ProductRepository productRepository;
+
+    @BeforeEach
+    public void init() {
+        orderRepository.deleteAll();
+        userRepository.deleteAll();
+        productRepository.deleteAll();
+        cartRepository.deleteAll();
+    }
 
     @Test
     void testPlainUserSave() {
@@ -55,6 +64,11 @@ class UserTestSuite {
 
     @Test
     void testSaveUserWithCartAndOrder() {
+        orderRepository.deleteAll();
+        userRepository.deleteAll();
+        cartRepository.deleteAll();
+        productRepository.deleteAll();
+
         //Given
         Product product = new Product();
         product = productRepository.save(product);
