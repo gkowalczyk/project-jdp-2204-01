@@ -5,6 +5,7 @@ import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.OrderRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import com.kodilla.ecommercee.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,14 @@ public class OrderTestSuite {
     private ProductRepository productRepository;
     @Autowired
     private GroupRepository groupRepository;
+
+    @BeforeEach
+    public void init() {
+        orderRepository.deleteAll();
+        userRepository.deleteAll();
+        productRepository.deleteAll();
+        groupRepository.deleteAll();
+    }
 
     @Test
     void testRelationWithUser() {
