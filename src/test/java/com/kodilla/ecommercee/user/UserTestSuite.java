@@ -8,6 +8,7 @@ import com.kodilla.ecommercee.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ class UserTestSuite {
     private UserRepository userRepository;
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Test
     void testPlainUserSave() {
@@ -54,6 +57,7 @@ class UserTestSuite {
     void testSaveUserWithCartAndOrder() {
         //Given
         Product product = new Product();
+        product = productRepository.save(product);
         List<Product> productList = new ArrayList<>();
         productList.add(product);
 
@@ -72,7 +76,7 @@ class UserTestSuite {
         User savedUser = userRepository.save(user);
         Long userId = savedUser.getId();
         Cart savedCart = cartRepository.save(cart);
-        Long cartId = savedCart.getId();
+        Long cartId = savedCart.getCartId();
         Order savedOrder = orderRepository.save(order);
         Long orderId = savedOrder.getId();
 
