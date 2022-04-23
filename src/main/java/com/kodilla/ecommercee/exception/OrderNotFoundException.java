@@ -1,4 +1,4 @@
-package com.kodilla.ecommercee.exceptions;
+package com.kodilla.ecommercee.exception;
 
 public class OrderNotFoundException extends RuntimeException {
     public OrderNotFoundException(String message) {

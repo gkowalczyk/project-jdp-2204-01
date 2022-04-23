@@ -25,12 +25,34 @@ public class EcommerceeApplication {
                 http.csrf().disable()
                         .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                         .authorizeRequests()
-                        .antMatchers(HttpMethod.POST, "/v1/users/user").permitAll()
                         .antMatchers(HttpMethod.POST, "/v1/carts/new/{userId}").permitAll()
                         .antMatchers(HttpMethod.GET, "/v1/carts/{cartId}").permitAll()
                         .antMatchers(HttpMethod.POST, "/v1/carts/addProduct/{cartId}/{productId}").permitAll()
                         .antMatchers(HttpMethod.DELETE, "/v1/carts/deleteProduct/{cartId}/{productId}").permitAll()
                         .antMatchers(HttpMethod.POST, "/v1/carts/order/{cartId}").permitAll()
+
+                        .antMatchers(HttpMethod.GET, "/v1/group").permitAll()
+                        .antMatchers(HttpMethod.GET, "/v1/group/{groupId}").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/v1/group/{groupId}").permitAll()
+                        .antMatchers(HttpMethod.POST, "/v1/group").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/v1/group/{groupId}").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/v1/group/{groupId}").permitAll()
+
+                        .antMatchers(HttpMethod.GET, "/v1/products").permitAll()
+                        .antMatchers(HttpMethod.GET, "/v1/products/{productId}").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/v1/products/{productId}").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/v1/products/{productId}").permitAll()
+                        .antMatchers(HttpMethod.POST, "/v1/products").permitAll()
+
+                        .antMatchers(HttpMethod.GET, "/v1/orders").permitAll()
+                        .antMatchers(HttpMethod.GET, "/v1/orders/{orderId}").permitAll()
+                        .antMatchers(HttpMethod.POST, "/v1/orders").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/v1/orders/{orderId}").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/v1/orders/{orderId}").permitAll()
+
+                        .antMatchers(HttpMethod.POST, "/v1/users/create").permitAll()
+                        .antMatchers(HttpMethod.PUT, "/v1/users").permitAll()
+                        .antMatchers(HttpMethod.POST, "/v1/users/user").permitAll()
                         .anyRequest().authenticated();
             }
         }
