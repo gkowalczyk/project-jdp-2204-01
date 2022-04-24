@@ -71,7 +71,6 @@ class UserTestSuite {
 
         //Given
         Product product = new Product();
-        product = productRepository.save(product);
         List<Product> productList = new ArrayList<>();
         productList.add(product);
 

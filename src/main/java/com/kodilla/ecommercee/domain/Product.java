@@ -2,11 +2,9 @@ package com.kodilla.ecommercee.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @NoArgsConstructor
 @Data
@@ -33,12 +31,6 @@ public class Product {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @ManyToMany(cascade = CascadeType.DETACH, mappedBy = "products")
-    private List<Cart> carts = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.DETACH, mappedBy = "products")
-    private List<Order> orders = new ArrayList<>();
-
     public Product(String name, String description, BigDecimal price, Group group) {
         this.name = name;
         this.description = description;
@@ -53,5 +45,4 @@ public class Product {
         this.price = price;
         this.group = group;
     }
-
 }

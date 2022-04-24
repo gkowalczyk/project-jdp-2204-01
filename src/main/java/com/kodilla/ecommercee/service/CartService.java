@@ -43,9 +43,7 @@ public class CartService {
     }
 
     public List<Product> getProducts(final Long cartId) throws CartNotFoundException {
-        List<Product> productsFromCarts = new ArrayList<>();
-        productsFromCarts.addAll(cartRepository.findById(cartId).orElseThrow(CartNotFoundException::new).getProducts());
-        return productsFromCarts;
+        return cartRepository.findById(cartId).orElseThrow(CartNotFoundException::new).getProducts();
     }
 
     public void addProduct(final Long cartId, final Long productId) throws CartNotFoundException {
@@ -71,7 +69,7 @@ public class CartService {
         Optional<Product> product = productRepository.findById(productId);
 
         if(!product.isPresent()) {
-            throw new ProductNotFoundException("Task with given id doesn't exist");
+            throw new ProductNotFoundException("Product with given id doesn't exist");
         }
 
         boolean removed = cart.getProducts().remove(product.get());
@@ -82,6 +80,4 @@ public class CartService {
 
         return removed;
     }
-
-
 }
