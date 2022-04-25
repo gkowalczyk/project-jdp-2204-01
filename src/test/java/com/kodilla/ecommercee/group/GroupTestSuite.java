@@ -75,7 +75,7 @@ class GroupTestSuite {
         assertNotNull(group1);
         //When
         group1.setName(newName);
-        group1 = groupRepository.findById(1L).get();
+        group1 = groupRepository.findById(hats.getId()).get();
         //Then
         assertEquals(newName, group1.getName());
         //clean up
