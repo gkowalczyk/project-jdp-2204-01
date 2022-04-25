@@ -38,5 +38,4 @@ public class Group {
         this.id = id;
         this.name = name;
     }
-
 }
