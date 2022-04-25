@@ -32,6 +32,7 @@ public class GroupDBService {
     public void deleteGroup(Long id) {
         groupRepository.deleteById(id);
     }
+
     public Group updateGroup(final Group group, final Long id) {
         Optional<Group> groupEntity = groupRepository.findById(id);
         Group groupForUpdate = groupEntity.orElseThrow(() -> new GroupNotFoundException(
