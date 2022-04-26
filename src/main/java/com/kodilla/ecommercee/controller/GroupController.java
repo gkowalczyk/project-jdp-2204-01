@@ -34,7 +34,7 @@ public class GroupController {
     @PutMapping(value = "{groupId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GroupDto> updateGroup(@PathVariable Long groupId, @RequestBody GroupDto groupDto) {
         Group group = groupMapper.mapToGroup(groupDto);
-        Group updatedGroup = groupDBService.saveGroup(group);
+        Group updatedGroup = groupDBService.updateGroup(group, groupId);
         return ResponseEntity.ok(groupMapper.mapToGroupDto(updatedGroup));
     }
 
