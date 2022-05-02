@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 
 public class GroupDBService {
-
-    @Autowired
     private final GroupRepository groupRepository;
 
     public List<Group> getAllGroups() {
@@ -22,7 +21,8 @@ public class GroupDBService {
     }
 
     public Group getGroupById(Long id) throws GroupNotFoundException {
-        return groupRepository.findById(id).orElseThrow(GroupNotFoundException::new);
+        return groupRepository.findById(id).orElseThrow(() -> new GroupNotFoundException(
+                "Group for update not found for id: " + id));
     }
 
     public Group saveGroup(final Group group) {
@@ -31,6 +31,13 @@ public class GroupDBService {
 
     public void deleteGroup(Long id) {
         groupRepository.deleteById(id);
+    }
+    public Group updateGroup(final Group group, final Long id) {
+        Optional<Group> groupEntity = groupRepository.findById(id);
+        Group groupForUpdate = groupEntity.orElseThrow(() -> new GroupNotFoundException(
+                "Group for update not found for id: " + id));
+        groupForUpdate.setName(group.getName());
+        return groupRepository.save(groupForUpdate);
     }
 }
 
