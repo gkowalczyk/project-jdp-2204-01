@@ -21,7 +21,7 @@ Restowe API napisane w Springu z wykorzystaniem następujących technologii:
 - komunikatory 
 - JIRA
 - GITHUB
-- cotygodniowe spotakania zespołowe i omawianie bieżących postępów
+- cotygodniowe spotkania zespołowe i omawianie bieżących postępów
 - pisanie codziennego DAILY
 
 ## 3.Opis funkcjonalności:
